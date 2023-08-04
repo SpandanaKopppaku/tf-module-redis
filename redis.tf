@@ -1,4 +1,3 @@
-
 resource "aws_elasticache_cluster" "redis" {
   cluster_id           = "roboshop-${var.ENV}-redis"
   engine               = "redis"
@@ -15,7 +14,7 @@ resource "aws_elasticache_cluster" "redis" {
 
 resource "aws_elasticache_parameter_group" "redis_pg" {
   name   = "roboshop-${var.ENV}-redis-pg"
-  family = "redis6.2"
+  family = "redis6.2.13"
 }
 
 
