@@ -17,23 +17,14 @@ resource "aws_elasticache_parameter_group" "redis_pg" {
 }
 
 
-
-
-
-# resource "aws_docdb_cluster" "redis" {
-#   cluster_identifier        = "roboshop-${var.ENV}-docdb"
-#   engine                    = "redis"
-#   master_username           = "admin1"
-#   master_password           = "roboshop1"
-#   skip_final_snapshot       = true 
-#   vpc_security_group_ids    = [aws_security_group.allows_docbd.id]
-#   db_subnet_group_name      = aws_docdb_subnet_group.aws_docdb_subnet_group.name
-
-# #   backup_retention_period   = 14
-# #   preferred_backup_window   = "02:00-05:00"
-# }
-
 # # Creates subnet group
+resource "aws_elasticache_subnet_group" "redis" {
+  name       = "roboshop-redis-${var.ENV}-subnetgroup"
+  subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS
+}
+
+
+
 
 # resource "aws_docdb_subnet_group" "aws_docdb_subnet_group" {
 #   name       = "roboshop-docdb-${var.ENV}-subnetgroup"
