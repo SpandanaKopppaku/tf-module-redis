@@ -7,6 +7,7 @@ resource "aws_elasticache_cluster" "redis" {
   parameter_group_name = aws_elasticache_parameter_group.redis_pg.name
   engine_version       = "6.2.13"
   port                 = 6379
+  subnet_group_name    = aws_elasticache_subnet_group.redis_subnet_group.name
 }
 
 # Creates parameter group needed for elastic cache
@@ -18,9 +19,13 @@ resource "aws_elasticache_parameter_group" "redis_pg" {
 
 
 # # Creates subnet group
-resource "aws_elasticache_subnet_group" "redis" {
+resource "aws_elasticache_subnet_group" "redis_subnet_group" {
   name       = "roboshop-redis-${var.ENV}-subnetgroup"
   subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS
+
+  tags = {
+    Name = "roboshop-docdb-${var.ENV}-subnetgroup"
+    }
 }
 
 
