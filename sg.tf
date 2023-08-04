@@ -1,12 +1,12 @@
-resource "aws_security_group" "allows_docbd" {
-  name        = "allows_docdb_internal only"
-  description = "allows_docdb_internal only"
+resource "aws_security_group" "allows_redis" {
+  name        = "allows_redis_internal only"
+  description = "allows_redis_internal only"
   vpc_id      = data.terraform_remote_state.vpc.outputs.VPC_ID
 
   ingress {
-    description = "docdb from VPC"
-    from_port   = 27017
-    to_port     = 27017
+    description = "redis from VPC"
+    from_port   = 6379
+    to_port     = 6379
     protocol    = "tcp"
     cidr_blocks = [data.terraform_remote_state.vpc.outputs.VPC_CIDR, data.terraform_remote_state.vpc.outputs.DEFAULT_VPC_CIDR]
   }
@@ -19,6 +19,6 @@ resource "aws_security_group" "allows_docbd" {
   }
 
   tags = {
-    Name = "roboshop-${var.ENV}-docdb-sg"
+    Name = "roboshop-${var.ENV}-redis-sg"
   }
 }

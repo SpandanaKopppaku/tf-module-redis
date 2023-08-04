@@ -5,7 +5,7 @@ resource "aws_elasticache_cluster" "redis" {
   node_type            = "cache.m4.large"
   num_cache_nodes      = 1
   parameter_group_name = aws_elasticache_parameter_group.redis_pg.name
-  engine_version       = "3.2.10"
+  engine_version       = "6.2.13"
   port                 = 6379
 }
 
